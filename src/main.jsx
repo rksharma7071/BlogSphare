@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import { getAllUser, getUserWithId } from "./api_fetch/user.jsx";
 import User from "./pages/User.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -19,6 +19,10 @@ import UserWithId from "./pages/UserWithId.jsx";
 import PostWithId from "./pages/PostWithId.jsx";
 
 const router = createBrowserRouter([
+  {
+    path:"/",
+    element:<Link to={'/admin'}>Admin</Link>
+  },
   {
     path: "/admin",
     element: <App />,
