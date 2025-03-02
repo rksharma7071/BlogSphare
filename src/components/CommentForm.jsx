@@ -39,23 +39,6 @@ function CommentForm({ commentsData, usersData, postsData, refreshComments }) {
       <h1>Create New Comment</h1>
       <form onSubmit={handleCommentFormSubmit}>
         <div>
-          <label id="post_id">Post</label>
-          <select
-            name="post_id"
-            id="post_id"
-            onChange={handleChange}
-            value={comment.post_id}
-          >
-            <option>Select Post</option>
-            {postsData.map((post, index) => (
-              <option key={index} value={post._id}>
-                {post.title}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
           <label id="user_id">User</label>
           <select
             name="user_id"
@@ -67,6 +50,23 @@ function CommentForm({ commentsData, usersData, postsData, refreshComments }) {
             {usersData.map((user, index) => (
               <option key={index} value={user._id}>
                 {user.username}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label id="post_id">Post</label>
+          <select
+            name="post_id"
+            id="post_id"
+            onChange={handleChange}
+            value={comment.post_id}
+          >
+            <option>Select Post</option>
+            {postsData.map((post, index) => (
+              <option key={index} value={post._id}>
+                {post.title}
               </option>
             ))}
           </select>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-function PostForm({ refreshPosts }) {
+function PostForm({ refreshPosts, usersData, categoriesData }) {
   const [post, setPost] = useState({
     title: "",
     content: "",
@@ -23,7 +23,8 @@ function PostForm({ refreshPosts }) {
 
   const handlePostCreate = async (post) => {
     try {
-      await axios.post("/api/posts", {
+      console.log(post);
+      const response = await axios.post("/api/posts", {
         title: post.title,
         content: post.content,
         author_id: post.author_id,
@@ -32,6 +33,7 @@ function PostForm({ refreshPosts }) {
         status: post.status,
         featured_image: post.featured_image,
       });
+      console.log("Post created successfully:", response.data);
       await refreshPosts();
       setPost({
         title: "",
@@ -43,12 +45,14 @@ function PostForm({ refreshPosts }) {
         featured_image: "",
       });
     } catch (error) {
-      console.error(
-        "Error creating post:",
-        error.response?.data?.msg || error.message
-      );
+      console.error("Error creating post:", error);
+      if (error.response) {
+        console.error("Response error data:", error.response.data);
+      }
+      alert("An error occurred while creating the post. Please try again.");
     }
   };
+  
 
   const handlePostFormSubmit = (e) => {
     e.preventDefault();
@@ -82,24 +86,46 @@ function PostForm({ refreshPosts }) {
           />
         </div>
         <div>
-          <label>Author ID:</label>
-          <input
+          <label>Author:</label>
+          <select
+            name="author_id"
+            value={post.author_id}
+            onChange={handleChange}
+            required
+          >
+            <option>Select Author</option>
+            {usersData.map((user, index) => (
+              <option key={index} value={user._id}>{user.username}</option>
+            ))}
+          </select>
+          {/* <input
             type="text"
             name="author_id"
             value={post.author_id}
             onChange={handleChange}
             required
-          />
+          /> */}
         </div>
         <div>
-          <label>Category ID:</label>
-          <input
+          <label>Category: </label>
+          <select
+            name="category_id"
+            value={post.category_id}
+            onChange={handleChange}
+            required
+          >
+            <option>Select Category</option>
+            {categoriesData.map((category, index) => (
+              <option key={index} value={category._id}>{category.name}</option>
+            ))}
+          </select>
+          {/* <input
             type="text"
             name="category_id"
             value={post.category_id}
             onChange={handleChange}
             required
-          />
+          /> */}
         </div>
         <div>
           <label>Tags (comma separated IDs):</label>
@@ -119,6 +145,7 @@ function PostForm({ refreshPosts }) {
             onChange={handleChange}
             required
           >
+            <option>Select Status</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
           </select>

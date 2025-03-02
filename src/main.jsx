@@ -11,17 +11,21 @@ import Category from "./pages/Category.jsx";
 import PostTag from "./pages/PostTag.jsx";
 import Comment from "./pages/Comment.jsx";
 import { getAllPost, getPostWithId } from "./api_fetch/post.jsx";
-import getAllTag from "./api_fetch/tag.jsx";
-import getAllPostTag from "./api_fetch/postTags.jsx";
-import getAllCategory from "./api_fetch/category.jsx";
-import getAllComment from "./api_fetch/comment.jsx";
+import { getAllTag, getTagWithId } from "./api_fetch/tag.jsx";
+import { getAllPostTag, getPostTagWithId } from "./api_fetch/postTags.jsx";
+import { getAllCategory, getCategoryWithId } from "./api_fetch/category.jsx";
+import { getAllComment, getCommentWithId } from "./api_fetch/comment.jsx";
 import UserWithId from "./pages/UserWithId.jsx";
 import PostWithId from "./pages/PostWithId.jsx";
+import TagWithId from "./pages/TagWithId.jsx";
+import CategoryWithId from "./pages/CategoryWithId.jsx";
+import PostTagWithId from "./pages/PostTagWithId.jsx";
+import CommentWithId from "./pages/CommentWithId.jsx";
 
 const router = createBrowserRouter([
   {
-    path:"/",
-    element:<Link to={'/admin'}>Admin</Link>
+    path: "/",
+    element: <Link to={"/admin"}>Admin</Link>,
   },
   {
     path: "/admin",
@@ -57,9 +61,19 @@ const router = createBrowserRouter([
         loader: getAllTag,
       },
       {
+        path: "tag/:id",
+        element: <TagWithId />,
+        loader: getTagWithId,
+      },
+      {
         path: "category",
         element: <Category />,
         loader: getAllCategory,
+      },
+      {
+        path: "category/:id",
+        element: <CategoryWithId />,
+        loader: getCategoryWithId,
       },
       {
         path: "posttag",
@@ -67,9 +81,19 @@ const router = createBrowserRouter([
         loader: getAllPostTag,
       },
       {
+        path: "posttag/:id",
+        element: <PostTagWithId />,
+        loader: getPostTagWithId,
+      },
+      {
         path: "comment",
         element: <Comment />,
         loader: getAllComment,
+      },
+      {
+        path: "comment/:id",
+        element: <CommentWithId/>,
+        loader: getCommentWithId,
       },
     ],
   },

@@ -22,8 +22,16 @@ button:hover {
   background-color: #0000001a;
 }
 
+a,
+a:hover,
+a:target,
+a:focus,
+a:active {
+  color: #000000;
+}
+
 input,
-textarea, 
+textarea,
 select {
   display: block;
   padding: 10px 16px;
@@ -42,8 +50,8 @@ textarea {
   height: auto;
   line-height: 1.5;
 }
-select{
-  /* padding: 10px; */
+
+select {
   height: auto;
 }
 

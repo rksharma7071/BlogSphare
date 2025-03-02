@@ -15,7 +15,7 @@ function PostWithId() {
   } = post.data;
   return (
     <div>
-      <h1>{title}</h1>
+      <h1>Post Title: {title}</h1>
       <p>Content: {content}</p>
       {/* <p>{author_id?.username}</p> */}
       <p>

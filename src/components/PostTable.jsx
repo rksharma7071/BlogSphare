@@ -1,7 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { deleteUserWithId } from "../api_fetch/user";
+import { deletePostWithId } from "../api_fetch/post";
 
-function PostTable({ posts }) {
+function PostTable({ refreshPosts, posts }) {
+  const handleDeletePost = async (id) => {
+    if (confirm("Do you want to delete post?")) {
+      try {
+        const response = await deletePostWithId(id);
+        alert(response.data.message);
+        await refreshPosts();
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
+    }
+  };
+
   return (
     <>
       <h1>All Posts</h1>
@@ -15,7 +29,7 @@ function PostTable({ posts }) {
             <th>Author</th>
             <th>Category</th>
             <th>Tags</th>
-            {/* <th>Created At</th> */}
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -36,7 +50,11 @@ function PostTable({ posts }) {
                   <span key={tag._id}>{tag.name}, </span>
                 ))}
               </td>
-              {/* <td>{new Date(post.createdAt).toLocaleDateString()}</td> */}
+              <td>
+                <button onClick={() => handleDeletePost(post._id)}>
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

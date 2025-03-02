@@ -1,9 +1,20 @@
 const getAllPost = async () => {
   try {
-    const response = await fetch("/api/posts");
-    if (!response.ok) throw new Error("Failed to fetch");
-    const data = await response.json();
-    return { data };
+    const [postsResponse, usersResponse, categoriesResponse] = await Promise.all([
+      fetch("/api/posts"),
+      fetch("/api/users"),
+      fetch("/api/categories"),
+    ]);
+
+    if (!categoriesResponse.ok || !usersResponse.ok || !postsResponse.ok)
+      throw new Error("Failed to fetch");
+
+    const categoriesData = await categoriesResponse.json();
+    const usersData = await usersResponse.json();
+    const postsData = await postsResponse.json();
+
+    return { categoriesData, usersData, postsData };
+    
   } catch (error) {
     console.error(error);
     return [];
@@ -23,4 +34,21 @@ const getPostWithId = async (postId) => {
   }
 };
 
-export { getAllPost, getPostWithId };
+
+const deletePostWithId = async (postId) => {
+  try {
+    const response = await fetch(`/api/posts/${postId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) throw new Error("Failed to delete post");
+    const data = await response.json();
+    return { data };
+
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    return null;
+  }
+};
+
+export { getAllPost, getPostWithId, deletePostWithId };

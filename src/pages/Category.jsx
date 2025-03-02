@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import CategoryForm from "../components/CategoryForm";
 import CategoryTable from "../components/CategoryTable";
-import getAllCategory from "../api_fetch/category";
+import {getAllCategory} from "../api_fetch/category";
 
 function Category() {
   const loaderData = useLoaderData();
@@ -18,7 +18,7 @@ function Category() {
   return (
     <div>
       <CategoryForm refreshCategories={refreshCategories} />
-      <CategoryTable categories={categories} />
+      <CategoryTable refreshCategories={refreshCategories} categories={categories} />
     </div>
   );
 }

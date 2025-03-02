@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import CommentForm from "../components/CommentForm";
 import CommentTable from "../components/CommentTable";
-import getAllComment from "../api_fetch/comment";
+import {getAllComment} from "../api_fetch/comment";
 
 
 function Comment() {
@@ -37,6 +37,7 @@ function Comment() {
         commentsData={comments}
         getPostTitle={getPostTitle}
         getUserName={getUserName}
+        refreshComments={refreshComments}
       />
     </div>
   );

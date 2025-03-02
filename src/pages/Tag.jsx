@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import TagTable from "../components/TagTable";
 import TagForm from "../components/TagForm";
-import getAllTag from "../api_fetch/tag";
+import {getAllTag} from "../api_fetch/tag";
 
 function Tag() {
   const loaderData = useLoaderData();
@@ -10,6 +10,7 @@ function Tag() {
 
   const refreshTags = async () => {
     const updatedTagData = await getAllTag();
+    // console.log("updatedTagData:", updatedTagData.data)
     setTags(updatedTagData.data || []);
   };
 
@@ -18,7 +19,7 @@ function Tag() {
   return (
     <div>
       <TagForm refreshTags={refreshTags} />
-      <TagTable tags={tags} />
+      <TagTable refreshTags={refreshTags} tags={tags} />
     </div>
   );
 }

@@ -18,7 +18,7 @@ function User() {
   return (
     <div>
       <UserForm refreshUsers={refreshUsers} />
-      <UserTable users={users} />
+      <UserTable refreshUsers={refreshUsers} users={users} />
     </div>
   );
 }

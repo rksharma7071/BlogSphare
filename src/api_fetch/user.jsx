@@ -22,5 +22,21 @@ const getUserWithId = async (userId) => {
     return null;
   }
 };
+const deleteUserWithId = async (userId) => {
+  try {
+    const response = await fetch(`/api/users/${userId}`, {
+      method: "DELETE",
+    });
 
-export { getAllUser, getUserWithId };
+    if (!response.ok) throw new Error("Failed to delete user");
+    const data = await response.json();
+    return { data };
+
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return null;
+  }
+};
+
+
+export { getAllUser, getUserWithId, deleteUserWithId };
